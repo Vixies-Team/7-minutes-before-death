@@ -1,10 +1,14 @@
 extends CanvasLayer
 
-@onready var play_game: Button = $"Control/VBox/Play Game"
-@onready var settings: Button = $Control/VBox/Settings
-@onready var exit: Button = $Control/VBox/Exit
+@onready var menu: Control = $Menu
+
+@onready var play_game: Button = $"Menu/VBox/Play Game"
+@onready var options: Button = $Menu/VBox/Options
+@onready var exit: Button = $Menu/VBox/Exit
 @onready var glitch_effects: ColorRect = $"Glitch Effects"
 @onready var music: AudioStreamPlayer2D = $Music
+
+@onready var option: Control = $Options
 
 var is_random = false
 var done_random = false
@@ -17,6 +21,7 @@ func stutter(loop):
 		await get_tree().create_timer(0.1).timeout
 
 func random_button_first():
+	glitch_effects.mouse_filter = 0 # Set mouse filter to Stop
 	is_random = true
 	var loop_stutter = [true]
 	stutter(loop_stutter)
@@ -26,30 +31,43 @@ func random_button_first():
 
 	while Time.get_ticks_msec() < end_time:
 		play_game.text = random_string(randi_range(5, 12))
-		settings.text = random_string(randi_range(5, 12))
+		options.text = random_string(randi_range(5, 12))
 		exit.text = random_string(randi_range(5, 12))
 		await get_tree().create_timer(0.05).timeout
 
-	play_game.text = "Settings"
-	settings.text = "Play Game"
+	play_game.text = "Options"
+	options.text = "Play Game"
 	exit.text = "Exit"
 		
 	done_random = true
 	is_random = false
 	loop_stutter[0] = false
 	glitch_effects.material.set_shader_parameter("intensity", 0.0)
+	glitch_effects.mouse_filter = 2 # after that, set mouse filter to Ignore
 
 func _ready() -> void:
 	music.play()
 	seed(Time.get_unix_time_from_system())
 	
 func start_game_menu():
-	print("start game")
+	$"Fade Out".mouse_filter = 0 # Set mouse filter to Stop
+	var tween = create_tween()
+
+	tween.tween_property(
+		$"Fade Out",
+		"color:a",
+		1.0,
+		1.5
+	)
+
+	await tween.finished
+	
+	print("finished")
 	pass
 
 func options_menu():
-	print("options")
-	pass
+	menu.visible = false
+	option.visible = true
 
 func random_string(length: int) -> String:
 	var chars := "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:',.<>/?"
@@ -77,3 +95,7 @@ func _on_settings_pressed() -> void:
 func _on_exit_pressed() -> void:
 	if is_random: return
 	get_tree().quit()
+	
+func _on_back_pressed() -> void:
+	option.visible = false
+	menu.visible = true
