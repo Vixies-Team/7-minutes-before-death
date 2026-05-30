@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dlakvyhhnwfxr"]
+
+[ext_resource type="Script" uid="uid://bamo2503d3c4v" path="res://scripts/player.gd" id="1_3vyb7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vyb7"]
+height = 2.0605469
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g2els"]
+
+[node name="player" type="CharacterBody3D" unique_id=1479141823]
+script = ExtResource("1_3vyb7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1590924881]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009130955, -0.030273438, 0)
+shape = SubResource("CapsuleShape3D_3vyb7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=809418709]
+mesh = SubResource("CapsuleMesh_g2els")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1018281295]
+omni_range = 5.898
+
+[node name="Head" type="Node3D" parent="." unique_id=810580333]
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=220367713]
+current = true
+fov = 100.0
+far = 1000.0

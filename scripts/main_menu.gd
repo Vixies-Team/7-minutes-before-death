@@ -62,8 +62,7 @@ func start_game_menu():
 
 	await tween.finished
 	
-	print("finished")
-	pass
+	get_tree().change_scene_to_file("res://scenes/world.tscn")
 
 func options_menu():
 	menu.visible = false

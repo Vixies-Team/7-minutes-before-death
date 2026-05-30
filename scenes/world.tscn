@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cjt5atecyhfkv"]
+
+[ext_resource type="PackedScene" uid="uid://dnewbhdwp4osh" path="res://scenes/dori_home.tscn" id="2_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://dlakvyhhnwfxr" path="res://scenes/player.tscn" id="2_rwgxs"]
+
+[node name="world" type="Node3D" unique_id=360004931]
+
+[node name="player" parent="." unique_id=478352320 instance=ExtResource("2_rwgxs")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 1.949, 1, -5.398)
+
+[node name="DoriHome" parent="." unique_id=61393588 instance=ExtResource("2_4wyf3")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=435075992]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0464187, -5.2781215)
+visible = false

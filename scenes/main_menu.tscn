@@ -149,7 +149,6 @@ mouse_filter = 2
 
 [node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=1701639886]
 stream = ExtResource("3_bqqt6")
-bus = &"Music"
 
 [connection signal="pressed" from="Menu/VBox/Play Game" to="." method="_on_play_game_pressed"]
 [connection signal="pressed" from="Menu/VBox/Options" to="." method="_on_settings_pressed"]
