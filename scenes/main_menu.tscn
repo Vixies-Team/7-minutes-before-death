@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://cbvj4vltvtf66"]
+
+[ext_resource type="Script" uid="uid://bth6iq113cps1" path="res://scripts/main_menu.gd" id="1_ekxnf"]
+[ext_resource type="Shader" uid="uid://iu6axvix0yol" path="res://assets/shaders/glitch_effect.gdshader" id="2_bqqt6"]
+[ext_resource type="AudioStream" uid="uid://v235kqmirk4s" path="res://assets/musics/in_memoriam.mp3" id="3_bqqt6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fu7sn"]
+shader = ExtResource("2_bqqt6")
+shader_parameter/intensity = 0.0
+
+[node name="Main Menu" type="CanvasLayer" unique_id=1895851530]
+script = ExtResource("1_ekxnf")
+
+[node name="Control" type="Control" parent="." unique_id=1667761717]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 376.0
+offset_top = 552.0
+offset_right = 752.0
+offset_bottom = 552.0
+
+[node name="VBox" type="VBoxContainer" parent="Control" unique_id=628464658]
+layout_mode = 0
+offset_top = -180.0
+offset_right = 376.0
+offset_bottom = 21.0
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+
+[node name="Play Game" type="Button" parent="Control/VBox" unique_id=141896415]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Play Game"
+
+[node name="Settings" type="Button" parent="Control/VBox" unique_id=1096782471]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Options"
+
+[node name="Exit" type="Button" parent="Control/VBox" unique_id=605073937]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Exit"
+
+[node name="Glitch Effects" type="ColorRect" parent="." unique_id=980423963]
+material = SubResource("ShaderMaterial_fu7sn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=1701639886]
+stream = ExtResource("3_bqqt6")
+
+[connection signal="pressed" from="Control/VBox/Play Game" to="." method="_on_play_game_pressed"]
+[connection signal="pressed" from="Control/VBox/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Control/VBox/Exit" to="." method="_on_exit_pressed"]
