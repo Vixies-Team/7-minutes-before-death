@@ -1,28 +1,178 @@
 [gd_scene format=3 uid="uid://dlakvyhhnwfxr"]
 
 [ext_resource type="Script" uid="uid://bamo2503d3c4v" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://bucnmuaspr2pv" path="res://assets/3d/psx-first-person-arms-free-game-assets/arms_rig.fbx" id="2_g2els"]
+[ext_resource type="Script" uid="uid://1s6qo86yxhcq" path="res://scripts/eye_canvas.gd" id="2_qlg0r"]
+[ext_resource type="Shader" uid="uid://ls8jqxund4a0" path="res://assets/shaders/blur.gdshader" id="3_qlg0r"]
+[ext_resource type="Shader" uid="uid://b2wuxjp3s62rd" path="res://assets/shaders/toplid.gdshader" id="3_tuyoq"]
+[ext_resource type="Shader" uid="uid://n3u6sn4gwsoo" path="res://assets/shaders/bottomlid.gdshader" id="4_tuyoq"]
+[ext_resource type="Script" uid="uid://c2hhoobl83fna" path="res://scripts/pause.gd" id="6_fjrip"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vyb7"]
-height = 2.0605469
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fjrip"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g2els"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smehm"]
+shader = ExtResource("3_tuyoq")
+shader_parameter/open_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ur7pv"]
+shader = ExtResource("4_tuyoq")
+shader_parameter/open_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fjrip"]
+shader = ExtResource("3_qlg0r")
+shader_parameter/blur_strength = 5.0
 
 [node name="player" type="CharacterBody3D" unique_id=1479141823]
 script = ExtResource("1_3vyb7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1590924881]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009130955, -0.030273438, 0)
-shape = SubResource("CapsuleShape3D_3vyb7")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1339124677]
+shape = SubResource("CapsuleShape3D_fjrip")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=809418709]
+visible = false
 mesh = SubResource("CapsuleMesh_g2els")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1018281295]
-omni_range = 5.898
-
 [node name="Head" type="Node3D" parent="." unique_id=810580333]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35765836, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=220367713]
 current = true
 fov = 100.0
 far = 1000.0
+
+[node name="Panel" type="Panel" parent="Head/Camera3D" unique_id=486821415]
+offset_right = 1152.0
+offset_bottom = 648.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Time" type="Label" parent="Head/Camera3D" unique_id=1299196053]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -208.0
+offset_top = 40.0
+offset_right = -65.0
+offset_bottom = 117.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 56
+text = "07:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pause" type="Control" parent="Head/Camera3D" unique_id=1059093828]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_fjrip")
+
+[node name="Panel" type="Panel" parent="Head/Camera3D/Pause" unique_id=1135227107]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Head/Camera3D/Pause/Panel" unique_id=861468388]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 296.0
+offset_right = 880.0
+offset_bottom = 525.0
+theme_override_constants/separation = 35
+
+[node name="Resume" type="Button" parent="Head/Camera3D/Pause/Panel/VBoxContainer" unique_id=1061772824]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Resume"
+
+[node name="Options" type="Button" parent="Head/Camera3D/Pause/Panel/VBoxContainer" unique_id=1178322019]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Options"
+
+[node name="Exit Game" type="Button" parent="Head/Camera3D/Pause/Panel/VBoxContainer" unique_id=550493380]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Exit Game"
+
+[node name="Label" type="Label" parent="Head/Camera3D/Pause" unique_id=801232482]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 128.0
+offset_right = 816.0
+offset_bottom = 216.0
+theme_override_font_sizes/font_size = 64
+text = "Game Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EyeCanvas" type="CanvasLayer" parent="Head/Camera3D" unique_id=1210252260]
+script = ExtResource("2_qlg0r")
+
+[node name="CrossHair" type="ColorRect" parent="Head/Camera3D/EyeCanvas" unique_id=920086831]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FadeOut" type="ColorRect" parent="Head/Camera3D/EyeCanvas" unique_id=1917818080]
+process_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="TopLid" type="ColorRect" parent="Head/Camera3D/EyeCanvas" unique_id=1287893282]
+material = SubResource("ShaderMaterial_smehm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BottomLid" type="ColorRect" parent="Head/Camera3D/EyeCanvas" unique_id=628671236]
+material = SubResource("ShaderMaterial_ur7pv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BlurRect" type="ColorRect" parent="Head/Camera3D/EyeCanvas" unique_id=1697074267]
+material = SubResource("ShaderMaterial_fjrip")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="arms_rig" parent="." unique_id=836519792 instance=ExtResource("2_g2els")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -2.2971344, 0)
+visible = false
+
+[node name="Timer" type="Timer" parent="." unique_id=1582458817]
+autostart = true
+
+[connection signal="pressed" from="Head/Camera3D/Pause/Panel/VBoxContainer/Resume" to="Head/Camera3D/Pause" method="_on_resume_pressed"]
+[connection signal="pressed" from="Head/Camera3D/Pause/Panel/VBoxContainer/Options" to="Head/Camera3D/Pause" method="_on_options_pressed"]
+[connection signal="pressed" from="Head/Camera3D/Pause/Panel/VBoxContainer/Exit Game" to="Head/Camera3D/Pause" method="_on_exit_game_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

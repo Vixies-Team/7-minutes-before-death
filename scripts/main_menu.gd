@@ -47,6 +47,18 @@ func random_button_first():
 
 func _ready() -> void:
 	music.play()
+	$"Fade Out".mouse_filter = 0 # Set mouse filter to Stop
+	var tween = create_tween()
+
+	tween.tween_property(
+		$"Fade Out",
+		"color:a",
+		0.0,
+		1.5
+	)
+
+	await tween.finished
+	$"Fade Out".mouse_filter = 2 # Set mouse filter to Stop
 	seed(Time.get_unix_time_from_system())
 	
 func start_game_menu():
@@ -93,6 +105,18 @@ func _on_settings_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	if is_random: return
+	$"Fade Out".mouse_filter = 0 # Set mouse filter to Stop
+	var tween = create_tween()
+
+	tween.tween_property(
+		$"Fade Out",
+		"color:a",
+		1.0,
+		1.5
+	)
+
+	await tween.finished
+	
 	get_tree().quit()
 	
 func _on_back_pressed() -> void:

@@ -13,25 +13,39 @@ const BOB_AMP := 0.015
 var bob_time := 0.0
 var camera_origin : Vector3
 var is_camera_mouse = false
+var is_paused = false
+var time_count = 420
+var good_memories = 0
+var bad_memories = 0
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
+@onready var pause: Control = $Head/Camera3D/Pause
+@onready var cross_hair: ColorRect = $Head/Camera3D/EyeCanvas/CrossHair
+@onready var time: Label = $Head/Camera3D/Time
+@onready var timer: Timer = $Timer
 
 func capture_mouse():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	is_camera_mouse = true
 
 func release_mouse():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	is_camera_mouse = false
 	
 func _ready():
 	capture_mouse()
 	camera_origin = camera.position
+	is_camera_mouse = false
 
 func _input(event):
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel") and !is_paused:
 		release_mouse()
+		cross_hair.visible = false
+		is_paused = true
+		pause.visible = true
+		get_tree().paused = true
+	else:
+		is_paused = false
+		cross_hair.visible = true
 
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -51,14 +65,8 @@ func _input(event):
 		)
 
 func _physics_process(delta: float) -> void:
-
-	# Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
-	# Jump
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
 
 	# Movement
 	var input_dir := Input.get_vector(
@@ -104,3 +112,25 @@ func _update_headbob(delta):
 			camera_origin.y,
 			delta * 8.0
 		)
+
+func seconds_to_time(seconds: int) -> String:
+	var minutes = seconds / 60
+	var secs = seconds % 60
+	return "%02d:%02d" % [minutes, secs]
+
+func _on_timer_timeout() -> void:
+	if !is_camera_mouse: return
+	time_count -= 1
+	if (time_count < 0):
+		timer.stop()
+		if good_memories <= 0 and bad_memories <= 0:
+			pass # ini kasih jumpscare
+		elif good_memories > bad_memories:
+			pass # neutral ending
+		elif bad_memories > good_memories:
+			pass # bad ending
+		elif bad_memories == good_memories:
+			pass # good ending
+	else:
+		time.text = seconds_to_time(time_count)
+	
