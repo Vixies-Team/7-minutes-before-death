@@ -24,6 +24,8 @@ var bad_memories = 0
 @onready var cross_hair: ColorRect = $Head/Camera3D/EyeCanvas/CrossHair
 @onready var time: Label = $Head/Camera3D/Time
 @onready var timer: Timer = $Timer
+@onready var color_rect: ColorRect = $Head/Camera3D/EyeCanvas/ColorRect
+@onready var interact_ray = $Head/Camera3D/RayCast3D
 
 func capture_mouse():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -67,6 +69,7 @@ func _input(event):
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
 
 	# Movement
 	var input_dir := Input.get_vector(
@@ -87,7 +90,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, SPEED * 4.0)
 		velocity.z = move_toward(velocity.z, 0.0, SPEED * 4.0)
-
+		
+	#Interact
+	if Input.is_action_just_pressed("interact"):
+		interact()
+		
 	move_and_slide()
 
 	_update_headbob(delta)
@@ -133,4 +140,13 @@ func _on_timer_timeout() -> void:
 			pass # good ending
 	else:
 		time.text = seconds_to_time(time_count)
+		
+func interact():
+	print(interact_ray.get_collider())
+	if !interact_ray.is_colliding():
+		return
+
+	var target = interact_ray.get_collider()
 	
+	if target.has_method("interact"):
+		target.interact()

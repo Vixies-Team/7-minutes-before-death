@@ -165,6 +165,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D" unique_id=253677130]
+target_position = Vector3(0, 0, -0.67)
+
 [node name="arms_rig" parent="." unique_id=836519792 instance=ExtResource("2_g2els")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -2.2971344, 0)
 visible = false
