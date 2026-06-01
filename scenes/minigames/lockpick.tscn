@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bngw31fefmtge"]
+
+[ext_resource type="Script" uid="uid://dsrsfx41u0uq4" path="res://scripts/minigames/lockpick.gd" id="1_ck4aj"]
+[ext_resource type="PackedScene" uid="uid://bu8mvot2flyub" path="res://assets/3d/lockpick.glb" id="2_smjkt"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ck4aj"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Lockpick" type="Node2D" unique_id=1008972215]
+script = ExtResource("1_ck4aj")
+
+[node name="Panel" type="Panel" parent="." unique_id=646137216]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1976429169]
+transparent_bg = true
+render_target_update_mode = 4
+
+[node name="Node3D" type="Node3D" parent="SubViewport" unique_id=456687668]
+
+[node name="lockpick_3d" parent="SubViewport/Node3D" unique_id=592795974 instance=ExtResource("2_smjkt")]
+transform = Transform3D(-2.7975289e-06, 0, 64, 0, 64, 0, -64, 0, -2.7975289e-06, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D" unique_id=802151792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2586871, 1.7)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Node3D" unique_id=1368230462]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1822408781]
+position = Vector2(505, 264)
+texture = SubResource("ViewportTexture_ck4aj")

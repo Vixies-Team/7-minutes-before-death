@@ -46,7 +46,6 @@ func _process(delta: float) -> void:
 		var target = interact_ray.get_collider()
 		
 		if target.is_in_group("door"):
-			print("MUNCUL!")
 			interact_label.visible = true
 			interact_label.text = "Interact Door [E]"
 		elif target.is_in_group("couch"):
