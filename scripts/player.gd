@@ -18,6 +18,7 @@ var time_count = 420
 var good_memories = 0
 var bad_memories = 0
 
+@onready var eye_canvas: CanvasLayer = $Head/Camera3D/EyeCanvas
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var pause: Control = $Head/Camera3D/Pause
@@ -25,6 +26,7 @@ var bad_memories = 0
 @onready var time: Label = $Head/Camera3D/Time
 @onready var timer: Timer = $Timer
 @onready var interact_ray = $Head/Camera3D/RayCast3D
+@onready var interact_label: Label = $Head/Camera3D/EyeCanvas/Interact
 
 func capture_mouse():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -36,6 +38,20 @@ func _ready():
 	capture_mouse()
 	camera_origin = camera.position
 	is_camera_mouse = false
+
+func _process(delta: float) -> void:
+	interact_label.visible = false
+
+	if interact_ray.is_colliding():
+		var target = interact_ray.get_collider()
+		
+		if target.is_in_group("door"):
+			print("MUNCUL!")
+			interact_label.visible = true
+			interact_label.text = "Interact Door [E]"
+		elif target.is_in_group("couch"):
+			#interact_label.visible = true we'll add it later.
+			pass
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel") and !is_paused:
@@ -69,7 +85,6 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
-
 	# Movement
 	var input_dir := Input.get_vector(
 		"left",
@@ -139,7 +154,11 @@ func _on_timer_timeout() -> void:
 			pass # good ending
 	else:
 		time.text = seconds_to_time(time_count)
-		
+
+func _on_eye_timer_timeout() -> void:
+	await eye_canvas.animate_open(0.0, 0.10)
+	await eye_canvas.animate_open(1.0, 0.15)
+	
 func interact():
 	if !interact_ray.is_colliding():
 		return

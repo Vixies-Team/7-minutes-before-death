@@ -247,6 +247,25 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="Interact" type="Label" parent="Head/Camera3D/EyeCanvas" unique_id=890834939]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.5
+offset_top = -10.5
+offset_right = 103.5
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Interact Door"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D" unique_id=253677130]
 target_position = Vector3(0, 0, -0.67)
 
@@ -257,6 +276,10 @@ visible = false
 [node name="Timer" type="Timer" parent="." unique_id=1582458817]
 autostart = true
 
+[node name="EyeTimer" type="Timer" parent="." unique_id=106586606]
+wait_time = 5.0
+autostart = true
+
 [connection signal="pressed" from="Head/Camera3D/Pause/Panel/Options/Back" to="Head/Camera3D/Pause/Panel/Options" method="_on_back_pressed"]
 [connection signal="value_changed" from="Head/Camera3D/Pause/Panel/Options/Slider" to="Head/Camera3D/Pause/Panel/Options/Slider" method="_on_value_changed"]
 [connection signal="value_changed" from="Head/Camera3D/Pause/Panel/Options/Slider2" to="Head/Camera3D/Pause/Panel/Options/Slider2" method="_on_value_changed"]
@@ -264,3 +287,4 @@ autostart = true
 [connection signal="pressed" from="Head/Camera3D/Pause/Panel/Resume/VBoxContainer/Options" to="Head/Camera3D/Pause" method="_on_options_pressed"]
 [connection signal="pressed" from="Head/Camera3D/Pause/Panel/Resume/VBoxContainer/Exit Game" to="Head/Camera3D/Pause" method="_on_exit_game_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="EyeTimer" to="." method="_on_eye_timer_timeout"]
