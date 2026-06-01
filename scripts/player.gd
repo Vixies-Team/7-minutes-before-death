@@ -16,7 +16,7 @@ var camera_origin : Vector3
 var is_camera_mouse = false
 var is_paused = false
 var is_interact = false
-var time_count = 2
+var time_count = 420
 var good_memories = 1
 var bad_memories = 1
 var is_ending = false
