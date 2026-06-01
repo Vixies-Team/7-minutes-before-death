@@ -6,6 +6,6 @@
 [node name="world" type="Node3D" unique_id=360004931]
 
 [node name="player" parent="." unique_id=478352320 instance=ExtResource("2_rwgxs")]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 1.949, 1, -5.398)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.92989683, 1.7074474, -7.0886574)
 
 [node name="DoriHome" parent="." unique_id=61393588 instance=ExtResource("2_4wyf3")]

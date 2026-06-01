@@ -12,6 +12,7 @@ func interact():
 
 func open_door():
 	animation_player.play("door_open")
+	await animation_player.animation_finished
 	is_open = true
 
 func close_door():
