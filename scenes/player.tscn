@@ -5,7 +5,10 @@
 [ext_resource type="Script" uid="uid://1s6qo86yxhcq" path="res://scripts/eye_canvas.gd" id="2_qlg0r"]
 [ext_resource type="Shader" uid="uid://ls8jqxund4a0" path="res://assets/shaders/blur.gdshader" id="3_qlg0r"]
 [ext_resource type="Shader" uid="uid://b2wuxjp3s62rd" path="res://assets/shaders/toplid.gdshader" id="3_tuyoq"]
+[ext_resource type="Script" uid="uid://bfrckhwha1hwp" path="res://scripts/sliders/music.gd" id="3_ur7pv"]
+[ext_resource type="Script" uid="uid://nf46evnv1nj0" path="res://scripts/options.gd" id="3_y4r1p"]
 [ext_resource type="Shader" uid="uid://n3u6sn4gwsoo" path="res://assets/shaders/bottomlid.gdshader" id="4_tuyoq"]
+[ext_resource type="Script" uid="uid://ciohmnkt7dysn" path="res://scripts/sliders/sfx.gd" id="4_y4r1p"]
 [ext_resource type="Script" uid="uid://c2hhoobl83fna" path="res://scripts/pause.gd" id="6_fjrip"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fjrip"]
@@ -75,30 +78,86 @@ layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Head/Camera3D/Pause/Panel" unique_id=861468388]
+[node name="Options" type="Control" parent="Head/Camera3D/Pause/Panel" unique_id=1128261857]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_y4r1p")
+
+[node name="Options Label" type="Label" parent="Head/Camera3D/Pause/Panel/Options" unique_id=880841321]
 layout_mode = 0
-offset_left = 304.0
-offset_top = 296.0
-offset_right = 880.0
-offset_bottom = 525.0
-theme_override_constants/separation = 35
-
-[node name="Resume" type="Button" parent="Head/Camera3D/Pause/Panel/VBoxContainer" unique_id=1061772824]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Resume"
-
-[node name="Options" type="Button" parent="Head/Camera3D/Pause/Panel/VBoxContainer" unique_id=1178322019]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
+offset_left = 448.0
+offset_top = 56.0
+offset_right = 692.0
+offset_bottom = 144.0
+theme_override_font_sizes/font_size = 64
 text = "Options"
 
-[node name="Exit Game" type="Button" parent="Head/Camera3D/Pause/Panel/VBoxContainer" unique_id=550493380]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Exit Game"
+[node name="Back" type="Button" parent="Head/Camera3D/Pause/Panel/Options" unique_id=1373039177]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 480.0
+offset_right = 752.0
+offset_bottom = 561.0
+theme_override_font_sizes/font_size = 35
+text = "Back"
 
-[node name="Label" type="Label" parent="Head/Camera3D/Pause" unique_id=801232482]
+[node name="Label" type="Label" parent="Head/Camera3D/Pause/Panel/Options" unique_id=2010159572]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 191.0
+offset_right = 630.0
+offset_bottom = 236.0
+theme_override_font_sizes/font_size = 32
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Head/Camera3D/Pause/Panel/Options" unique_id=2090099243]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 245.0
+offset_right = 712.0
+offset_bottom = 261.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("3_ur7pv")
+music_bus_name = "Music"
+
+[node name="Label2" type="Label" parent="Head/Camera3D/Pause/Panel/Options" unique_id=1698270360]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 316.0
+offset_right = 591.0
+offset_bottom = 361.0
+theme_override_font_sizes/font_size = 32
+text = "SFX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slider2" type="HSlider" parent="Head/Camera3D/Pause/Panel/Options" unique_id=1840818359]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 372.0
+offset_right = 712.0
+offset_bottom = 388.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("4_y4r1p")
+sfx_bus_name = "SFX"
+
+[node name="Resume" type="Control" parent="Head/Camera3D/Pause/Panel" unique_id=1430268412]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Head/Camera3D/Pause/Panel/Resume" unique_id=801232482]
 layout_mode = 0
 offset_left = 392.0
 offset_top = 128.0
@@ -108,6 +167,29 @@ theme_override_font_sizes/font_size = 64
 text = "Game Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Head/Camera3D/Pause/Panel/Resume" unique_id=861468388]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 296.0
+offset_right = 880.0
+offset_bottom = 525.0
+theme_override_constants/separation = 35
+
+[node name="Resume" type="Button" parent="Head/Camera3D/Pause/Panel/Resume/VBoxContainer" unique_id=1061772824]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Resume"
+
+[node name="Options" type="Button" parent="Head/Camera3D/Pause/Panel/Resume/VBoxContainer" unique_id=1178322019]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Options"
+
+[node name="Exit Game" type="Button" parent="Head/Camera3D/Pause/Panel/Resume/VBoxContainer" unique_id=550493380]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Exit Game"
 
 [node name="EyeCanvas" type="CanvasLayer" parent="Head/Camera3D" unique_id=1210252260]
 script = ExtResource("2_qlg0r")
@@ -175,7 +257,10 @@ visible = false
 [node name="Timer" type="Timer" parent="." unique_id=1582458817]
 autostart = true
 
-[connection signal="pressed" from="Head/Camera3D/Pause/Panel/VBoxContainer/Resume" to="Head/Camera3D/Pause" method="_on_resume_pressed"]
-[connection signal="pressed" from="Head/Camera3D/Pause/Panel/VBoxContainer/Options" to="Head/Camera3D/Pause" method="_on_options_pressed"]
-[connection signal="pressed" from="Head/Camera3D/Pause/Panel/VBoxContainer/Exit Game" to="Head/Camera3D/Pause" method="_on_exit_game_pressed"]
+[connection signal="pressed" from="Head/Camera3D/Pause/Panel/Options/Back" to="Head/Camera3D/Pause/Panel/Options" method="_on_back_pressed"]
+[connection signal="value_changed" from="Head/Camera3D/Pause/Panel/Options/Slider" to="Head/Camera3D/Pause/Panel/Options/Slider" method="_on_value_changed"]
+[connection signal="value_changed" from="Head/Camera3D/Pause/Panel/Options/Slider2" to="Head/Camera3D/Pause/Panel/Options/Slider2" method="_on_value_changed"]
+[connection signal="pressed" from="Head/Camera3D/Pause/Panel/Resume/VBoxContainer/Resume" to="Head/Camera3D/Pause" method="_on_resume_pressed"]
+[connection signal="pressed" from="Head/Camera3D/Pause/Panel/Resume/VBoxContainer/Options" to="Head/Camera3D/Pause" method="_on_options_pressed"]
+[connection signal="pressed" from="Head/Camera3D/Pause/Panel/Resume/VBoxContainer/Exit Game" to="Head/Camera3D/Pause" method="_on_exit_game_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

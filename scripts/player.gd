@@ -24,7 +24,6 @@ var bad_memories = 0
 @onready var cross_hair: ColorRect = $Head/Camera3D/EyeCanvas/CrossHair
 @onready var time: Label = $Head/Camera3D/Time
 @onready var timer: Timer = $Timer
-@onready var color_rect: ColorRect = $Head/Camera3D/EyeCanvas/ColorRect
 @onready var interact_ray = $Head/Camera3D/RayCast3D
 
 func capture_mouse():
@@ -142,7 +141,6 @@ func _on_timer_timeout() -> void:
 		time.text = seconds_to_time(time_count)
 		
 func interact():
-	print(interact_ray.get_collider())
 	if !interact_ray.is_colliding():
 		return
 

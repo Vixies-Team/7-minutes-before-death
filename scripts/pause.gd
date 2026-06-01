@@ -1,6 +1,8 @@
 extends Control
 @onready var player: CharacterBody3D = $"../../.."
 @onready var fade_out: ColorRect = $"../EyeCanvas/FadeOut"
+@onready var resume: Control = $Panel/Resume
+@onready var options: Control = $Panel/Options
 
 func capture_mouse():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -38,8 +40,9 @@ func _on_exit_game_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 func _on_options_pressed() -> void:
+	resume.visible = false
+	options.visible = true
 	pass # Replace with function body.
-
 
 func _on_resume_pressed() -> void:
 	capture_mouse()

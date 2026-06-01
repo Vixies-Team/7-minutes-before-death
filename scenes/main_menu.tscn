@@ -90,7 +90,7 @@ offset_top = 191.0
 offset_right = 630.0
 offset_bottom = 236.0
 theme_override_font_sizes/font_size = 32
-text = "Volume"
+text = "Music"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -149,6 +149,7 @@ mouse_filter = 2
 
 [node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=1701639886]
 stream = ExtResource("3_bqqt6")
+bus = &"Music"
 
 [connection signal="pressed" from="Menu/VBox/Play Game" to="." method="_on_play_game_pressed"]
 [connection signal="pressed" from="Menu/VBox/Options" to="." method="_on_settings_pressed"]

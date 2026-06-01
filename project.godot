@@ -19,6 +19,14 @@ config/icon="res://icon.svg"
 
 buses/default_bus_layout="uid://0klyagh81i1j"
 
+[autoload]
+
+Settings="*uid://c82oinncju1d1"
+
+[display]
+
+window/stretch/mode="canvas_items"
+
 [filesystem]
 
 import/blender/enabled=false
