@@ -12,7 +12,12 @@
 [ext_resource type="Script" uid="uid://nf46evnv1nj0" path="res://scripts/options.gd" id="3_y4r1p"]
 [ext_resource type="Shader" uid="uid://n3u6sn4gwsoo" path="res://assets/shaders/bottomlid.gdshader" id="4_tuyoq"]
 [ext_resource type="Script" uid="uid://ciohmnkt7dysn" path="res://scripts/sliders/sfx.gd" id="4_y4r1p"]
+[ext_resource type="Script" uid="uid://ik8pam6pgg4u" path="res://scripts/interacts/sink.gd" id="5_oprun"]
 [ext_resource type="Script" uid="uid://c2hhoobl83fna" path="res://scripts/pause.gd" id="6_fjrip"]
+[ext_resource type="Texture2D" uid="uid://bu3y0xlsgyh2w" path="res://assets/images/plates.png" id="6_fulsm"]
+[ext_resource type="Texture2D" uid="uid://b8isrl1d2o3t1" path="res://assets/images/sponge.png" id="6_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://ytot8qu4g2h4" path="res://assets/images/hands.png" id="7_fulsm"]
+[ext_resource type="Texture2D" uid="uid://vibhud4gsls0" path="res://assets/images/dirty.png" id="9_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://c2t3i2baofj83" path="res://assets/sfx/step.mp3" id="14_f1ej7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fjrip"]
@@ -158,6 +163,78 @@ offset_bottom = 614.1628
 theme_override_font_sizes/font_size = 43
 text = "Close"
 
+[node name="Sink_Interact" type="Control" parent="Head/Camera3D" unique_id=830212020]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_oprun")
+
+[node name="Panel" type="Panel" parent="Head/Camera3D/Sink_Interact" unique_id=511612986]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Plates" type="Sprite2D" parent="Head/Camera3D/Sink_Interact/Panel" unique_id=770070457]
+position = Vector2(572, 348)
+scale = Vector2(0.228, 0.228)
+texture = ExtResource("6_fulsm")
+
+[node name="Dirty" type="TextureRect" parent="Head/Camera3D/Sink_Interact/Panel" unique_id=496658001]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 112.0
+offset_right = 808.0
+offset_bottom = 536.0
+texture = ExtResource("9_4r5pv")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Sponge" type="Sprite2D" parent="Head/Camera3D/Sink_Interact/Panel" unique_id=1951496629]
+position = Vector2(667.21045, 309.6553)
+rotation = 1.0471976
+scale = Vector2(0.19833957, 0.19833958)
+texture = ExtResource("6_qfm1y")
+
+[node name="Hand" type="Sprite2D" parent="Head/Camera3D/Sink_Interact/Panel" unique_id=51497353]
+position = Vector2(683.21045, 317.6553)
+rotation = 1.0471976
+scale = Vector2(0.06994102, 0.06994103)
+texture = ExtResource("7_fulsm")
+
+[node name="Done Washing" type="Button" parent="Head/Camera3D/Sink_Interact/Panel" unique_id=103496263]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 552.0
+offset_right = 708.0
+offset_bottom = 605.0
+theme_override_font_sizes/font_size = 32
+text = "Selesai Mencuci
+"
+
+[node name="desc2" type="Label" parent="Head/Camera3D/Sink_Interact/Panel" unique_id=1499494518]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 216.0
+offset_right = 296.0
+offset_bottom = 309.0
+theme_override_font_sizes/font_size = 32
+text = "Total Cuci: 0
+Minimal: 7"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="desc" type="Label" parent="Head/Camera3D/Sink_Interact/Panel" unique_id=1412666289]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 48.0
+offset_right = 813.0
+offset_bottom = 93.0
+theme_override_font_sizes/font_size = 32
+text = "Klik Kiri untuk Mencuci Piring"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Pause" type="Control" parent="Head/Camera3D" unique_id=1059093828]
 process_mode = 2
 visible = false
@@ -286,6 +363,7 @@ theme_override_font_sizes/font_size = 32
 text = "Exit Game"
 
 [node name="EyeCanvas" type="CanvasLayer" parent="Head/Camera3D" unique_id=1210252260]
+visible = false
 script = ExtResource("2_qlg0r")
 
 [node name="CrossHair" type="ColorRect" parent="Head/Camera3D/EyeCanvas" unique_id=920086831]
@@ -373,6 +451,7 @@ bus = &"SFX"
 libraries/ = SubResource("AnimationLibrary_a8ls1")
 
 [connection signal="pressed" from="Head/Camera3D/Mirror_Interact/Panel/Back" to="Head/Camera3D/Mirror_Interact" method="_on_back_pressed"]
+[connection signal="pressed" from="Head/Camera3D/Sink_Interact/Panel/Done Washing" to="Head/Camera3D/Sink_Interact" method="_on_done_washing_pressed"]
 [connection signal="pressed" from="Head/Camera3D/Pause/Panel/Options/Back" to="Head/Camera3D/Pause/Panel/Options" method="_on_back_pressed"]
 [connection signal="value_changed" from="Head/Camera3D/Pause/Panel/Options/Slider" to="Head/Camera3D/Pause/Panel/Options/Slider" method="_on_value_changed"]
 [connection signal="value_changed" from="Head/Camera3D/Pause/Panel/Options/Slider2" to="Head/Camera3D/Pause/Panel/Options/Slider2" method="_on_value_changed"]

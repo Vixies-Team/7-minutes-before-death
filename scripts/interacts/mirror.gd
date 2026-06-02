@@ -6,12 +6,13 @@ extends Control
 func _ready() -> void:
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func interact():
+	player.release_mouse()
+	player.is_interact = true
+	player.mirror_interact.visible = true
 
 func _on_back_pressed() -> void:
+	player.capture_mouse()
 	player.is_interact = false
-	visible = false
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	player.mirror_interact.visible = false
+	
