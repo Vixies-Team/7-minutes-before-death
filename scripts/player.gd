@@ -16,7 +16,7 @@ var camera_origin : Vector3
 var is_camera_mouse = false
 var is_paused = false
 var is_interact = false
-var time_count = 2
+var time_count = 420
 var good_memories = 1
 var bad_memories = 1
 var is_ending = false
@@ -33,6 +33,7 @@ var is_ending = false
 @onready var mirror_interact: Control = $Head/Camera3D/Mirror_Interact
 @onready var fade_ending: ColorRect = $Head/Camera3D/EyeCanvas/fade_ending
 @onready var eye_timer: Timer = $EyeTimer
+@onready var sink_interact: Control = $Head/Camera3D/Sink_Interact
 
 func capture_mouse():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -62,6 +63,9 @@ func _process(delta: float) -> void:
 		elif target.is_in_group("mirror"):
 			interact_label.visible = true
 			interact_label.text = "Interact Mirror [E]"
+		elif target.is_in_group("sink_wash"):
+			interact_label.visible = true
+			interact_label.text = "Interact Sink [E]"
 
 func _input(event):
 	if is_ending: return
@@ -231,3 +235,7 @@ func interact():
 		release_mouse()
 		is_interact = true
 		mirror_interact.visible = true
+	elif target.is_in_group("sink_wash"):
+		release_mouse()
+		is_interact = true
+		sink_interact.visible = true
